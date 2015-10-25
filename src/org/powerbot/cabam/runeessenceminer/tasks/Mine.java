@@ -4,7 +4,6 @@ import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import org.powerbot.cabam.runeessenceminer.util.Constants;
-import org.powerbot.cabam.runeessenceminer.util.Task;
 import org.powerbot.script.Condition;
 import org.powerbot.script.rt6.ClientContext;
 import org.powerbot.script.rt6.GameObject;

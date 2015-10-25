@@ -3,7 +3,6 @@ package org.powerbot.cabam.runeessenceminer.tasks;
 import java.util.logging.Logger;
 
 import org.powerbot.cabam.runeessenceminer.util.Constants;
-import org.powerbot.cabam.runeessenceminer.util.Task;
 import org.powerbot.script.rt6.ClientContext;
 
 public class RunToBank extends Task<ClientContext> {

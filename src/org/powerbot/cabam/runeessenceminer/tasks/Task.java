@@ -1,4 +1,4 @@
-package org.powerbot.cabam.runeessenceminer.util;
+package org.powerbot.cabam.runeessenceminer.tasks;
 
 import org.powerbot.script.rt6.ClientAccessor;
 import org.powerbot.script.rt6.ClientContext;

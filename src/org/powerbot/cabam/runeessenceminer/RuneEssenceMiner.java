@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.powerbot.cabam.runeessenceminer.report.ProgressReport;
+import org.powerbot.cabam.runeessenceminer.state.GameState;
 import org.powerbot.cabam.runeessenceminer.stats.Stats;
 import org.powerbot.cabam.runeessenceminer.stats.StatsFactory;
 import org.powerbot.cabam.runeessenceminer.tasks.ClimbDownStaircase;
@@ -21,10 +22,9 @@ import org.powerbot.cabam.runeessenceminer.tasks.RunToBank;
 import org.powerbot.cabam.runeessenceminer.tasks.RunToEntrance;
 import org.powerbot.cabam.runeessenceminer.tasks.RunToExit;
 import org.powerbot.cabam.runeessenceminer.tasks.RunToMine;
+import org.powerbot.cabam.runeessenceminer.tasks.Task;
 import org.powerbot.cabam.runeessenceminer.tasks.Teleport;
 import org.powerbot.cabam.runeessenceminer.util.Constants;
-import org.powerbot.cabam.runeessenceminer.util.SState;
-import org.powerbot.cabam.runeessenceminer.util.Task;
 import org.powerbot.script.PaintListener;
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.Script;
@@ -42,27 +42,27 @@ import org.powerbot.script.rt6.Player;
 @SuppressWarnings("rawtypes")
 public class RuneEssenceMiner extends PollingScript<ClientContext> implements PaintListener {
 	
-	private Map<SState, Task> tasks = new EnumMap<SState, Task>(SState.class);
+	private Map<GameState, Task> tasks = new EnumMap<GameState, Task>(GameState.class);
 	private StatsFactory statsFactory;
 	
 	private Logger logger = Logger.getGlobal();
 
 	@Override
 	public void start() {
-		tasks.put(SState.RUN_TO_ENTRANCE, new RunToEntrance(ctx));
-		tasks.put(SState.OPEN_DOOR, new OpenDoor(ctx));
-		tasks.put(SState.TELEPORT, new Teleport(ctx));
-		tasks.put(SState.RUN_TO_MINE, new RunToMine(ctx));
-		tasks.put(SState.MINE, new Mine(ctx));
-		tasks.put(SState.RUN_TO_EXIT, new RunToExit(ctx));
-		tasks.put(SState.EXIT, new Exit(ctx));
-		tasks.put(SState.RUN_TO_BANK, new RunToBank(ctx));
-		tasks.put(SState.DEPOSIT, new Deposit(ctx));
-		tasks.put(SState.OPEN_BANK, new OpenBank(ctx));
-		tasks.put(SState.CLOSE_BANK, new CloseBank(ctx));
-		tasks.put(SState.CLIMB_DOWN_STAIRCASE, new ClimbDownStaircase(ctx));
-		tasks.put(SState.CLOSE_INVENTORY_FULL_MESSAGE, new CloseInventoryFullMessage(ctx));
-		tasks.put(SState.IDLE, new Idle(ctx));
+		tasks.put(GameState.RUN_TO_ENTRANCE, new RunToEntrance(ctx));
+		tasks.put(GameState.OPEN_DOOR, new OpenDoor(ctx));
+		tasks.put(GameState.TELEPORT, new Teleport(ctx));
+		tasks.put(GameState.RUN_TO_MINE, new RunToMine(ctx));
+		tasks.put(GameState.MINE, new Mine(ctx));
+		tasks.put(GameState.RUN_TO_EXIT, new RunToExit(ctx));
+		tasks.put(GameState.EXIT, new Exit(ctx));
+		tasks.put(GameState.RUN_TO_BANK, new RunToBank(ctx));
+		tasks.put(GameState.DEPOSIT, new Deposit(ctx));
+		tasks.put(GameState.OPEN_BANK, new OpenBank(ctx));
+		tasks.put(GameState.CLOSE_BANK, new CloseBank(ctx));
+		tasks.put(GameState.CLIMB_DOWN_STAIRCASE, new ClimbDownStaircase(ctx));
+		tasks.put(GameState.CLOSE_INVENTORY_FULL_MESSAGE, new CloseInventoryFullMessage(ctx));
+		tasks.put(GameState.IDLE, new Idle(ctx));
 		
 		statsFactory = new StatsFactory(ctx);
 	}
@@ -72,7 +72,7 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 		tasks.get(state()).execute();
 	}
 	
-	private SState state() {
+	private GameState state() {
 		final Player player = ctx.players.local();
 		final Tile playerTile = player.tile();
 		ctx.backpack.select();
@@ -82,35 +82,35 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 			
 			if (aubury.tile().matrix(ctx).reachable()) {
 				if (ctx.backpack.isEmpty()) {
-					return SState.TELEPORT;
+					return GameState.TELEPORT;
 				} else if (!Constants.TILE_BANK.matrix(ctx).reachable()){
-					return SState.OPEN_DOOR;
+					return GameState.OPEN_DOOR;
 				}
 			} else if (Constants.TILE_BANK.matrix(ctx).reachable()) {
-				return SState.OPEN_DOOR;
+				return GameState.OPEN_DOOR;
 			}
 			
-			return player.inMotion() ? SState.IDLE : SState.RUN_TO_BANK;
+			return player.inMotion() ? GameState.IDLE : GameState.RUN_TO_BANK;
 		}
 		
 		if (playerTile.distanceTo(Constants.TILE_BANK) < 100) {
 			if (ctx.backpack.isEmpty()) {
-				return player.inMotion() ? SState.IDLE : SState.RUN_TO_ENTRANCE;
+				return player.inMotion() ? GameState.IDLE : GameState.RUN_TO_ENTRANCE;
 			}
 
 			if (playerTile.distanceTo(Constants.TILE_BANK) < 8) {
 				if (!ctx.bank.opened()) {
-					return SState.OPEN_BANK;
+					return GameState.OPEN_BANK;
 				}
 				
-				return SState.DEPOSIT;
+				return GameState.DEPOSIT;
 			}
 			
-			return player.inMotion() ? SState.IDLE : SState.RUN_TO_BANK;
+			return player.inMotion() ? GameState.IDLE : GameState.RUN_TO_BANK;
 		}
 		
 		if (playerTile.floor() == 1) {
-			return SState.CLIMB_DOWN_STAIRCASE;
+			return GameState.CLIMB_DOWN_STAIRCASE;
 		}
 		
 		final GameObject runeEssence = ctx.objects.select().id(Constants.OBJECT_RUNE_ESSENCE).nearest().peek();
@@ -118,37 +118,37 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 			if (ctx.backpack.count() < 28) {
 				if (runeEssence.inViewport()) {
 					if (playerTile.distanceTo(runeEssence.tile()) > 7) {
-						return SState.RUN_TO_MINE;
+						return GameState.RUN_TO_MINE;
 					}
 					
 					if (ctx.players.local().animation() == -1) {
-						return SState.MINE;
+						return GameState.MINE;
 					}
 					
-					return SState.IDLE;
+					return GameState.IDLE;
 				}
 				
-				return player.inMotion() ? SState.IDLE : SState.RUN_TO_MINE;
+				return player.inMotion() ? GameState.IDLE : GameState.RUN_TO_MINE;
 			}
 			
 			final GameObject exitPortal = ctx.objects.id(Constants.OBJECT_EXIT_PORTAL).nearest().peek();
 			if (exitPortal.inViewport()) {
 				if (ctx.widgets.component(Constants.WIDGET_INVENTORY_FULL, Constants.COMPONENT_INVENTORY_FULL_CLOSE).valid()) {
-					return SState.CLOSE_INVENTORY_FULL_MESSAGE;
+					return GameState.CLOSE_INVENTORY_FULL_MESSAGE;
 				}
-				return SState.EXIT;
+				return GameState.EXIT;
 			}
 			
-			return player.inMotion() ? SState.IDLE : SState.RUN_TO_EXIT;
+			return player.inMotion() ? GameState.IDLE : GameState.RUN_TO_EXIT;
 		}
 		
-		return SState.IDLE;
+		return GameState.IDLE;
 	}
 	
 	@Override
     public void repaint(Graphics graphics) {
 		final Stats stats = statsFactory.getStats(getRuntime());
-        ProgressReport.update(graphics, stats);
+        ProgressReport.paint(graphics, stats);
     }
 	
 	@Override

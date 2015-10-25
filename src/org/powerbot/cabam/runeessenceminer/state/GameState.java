@@ -1,6 +1,6 @@
-package org.powerbot.cabam.runeessenceminer.util;
+package org.powerbot.cabam.runeessenceminer.state;
 
-public enum SState {
+public enum GameState {
 	OPEN_BANK,
 	CLOSE_BANK,
 	DEPOSIT,
