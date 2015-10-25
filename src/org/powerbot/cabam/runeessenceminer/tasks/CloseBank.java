@@ -7,24 +7,24 @@ import org.powerbot.cabam.runeessenceminer.util.Task;
 import org.powerbot.script.Condition;
 import org.powerbot.script.rt6.ClientContext;
 
-public class Deposit extends Task<ClientContext> {
+public class CloseBank extends Task<ClientContext> {
 	
 	private Logger logger = Logger.getGlobal();
 
-	public Deposit(ClientContext ctx) {
+	public CloseBank(ClientContext ctx) {
 		super(ctx);
 	}
 
 	@Override
 	public void execute() {
-		logger.info("Executing task - Deposit");
+		logger.info("Executing task - CloseBank");
 		
-		ctx.bank.depositInventory();
+		ctx.bank.close();
 		
 		Condition.wait(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return ctx.backpack.select().isEmpty();
+				return !ctx.bank.opened();
 			}
 		}, 125, 16);
 	}

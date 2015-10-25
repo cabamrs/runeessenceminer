@@ -1,6 +1,8 @@
 package org.powerbot.cabam.runeessenceminer.util;
 
 public enum SState {
+	OPEN_BANK,
+	CLOSE_BANK,
 	DEPOSIT,
 	EXIT,
 	MINE,
@@ -10,5 +12,7 @@ public enum SState {
 	RUN_TO_EXIT,
 	RUN_TO_MINE,
 	TELEPORT,
+	CLIMB_DOWN_STAIRCASE,
+	CLOSE_INVENTORY_FULL_MESSAGE,
 	IDLE
 }
