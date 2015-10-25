@@ -17,13 +17,14 @@ public class ProgressReport {
 
         g.setFont(FONT_TAHOMA);
         g.setColor(Color.YELLOW);
-        g.fillRect(5, 5, 170, 85);
+        g.fillRect(5, 5, 450, 20);
 
         g.setColor(Color.BLACK);
-        g.drawString("Time: " + stats.getElapsedTime(), 10, 20);
-        g.drawString(String.format("Lvl: %,d +%,d", stats.getStartingMiningLevel(), stats.getGainedMiningLevels()), 10, 40);
-        g.drawString(String.format("Ess: %,d (%,d/h)", stats.getMinedEssence(), stats.getMinedEssencePerHour()), 10, 60);
-        g.drawString(String.format("Exp: %,d (%,d/h)", stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour()), 10, 80);
+        g.drawString("TIME: " + stats.getElapsedTime()
+        		+ " | " + String.format("LVL: %,d +%,d", stats.getStartingMiningLevel(), stats.getGainedMiningLevels())
+        		+ " | " + String.format("ESS: %,d (%,d/h)", stats.getMinedEssence(), stats.getMinedEssencePerHour())
+        		+ " | " + String.format("EXP: %,d (%,d/h)", stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour())
+        		, 10, 20);
 	}
 	
 	public static void log(Logger logger, final Stats stats) {
