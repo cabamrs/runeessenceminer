@@ -28,18 +28,18 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 		taskController = new TaskController(ctx);
 		statsFactory = new StatsFactory(ctx);
 	}
-	
+
 	@Override
 	public void poll() {
 		taskController.getTask().execute();
 	}
-	
+
 	@Override
-    public void repaint(Graphics graphics) {
+	public void repaint(Graphics graphics) {
 		final Stats stats = statsFactory.getStats(getRuntime());
-        ProgressReport.paint(graphics, stats);
-    }
-	
+		ProgressReport.paint(graphics, stats);
+	}
+
 	@Override
 	public void stop() {
 		final Stats stats = statsFactory.getStats(getRuntime());

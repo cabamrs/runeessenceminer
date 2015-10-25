@@ -22,29 +22,29 @@ public class StatsFactory {
 	}
 
 	public Stats getStats(final long runtime) {
-        final int currentMiningExperience = ctx.skills.experience(org.powerbot.script.rt6.Constants.SKILLS_MINING);
-        final int miningExperienceGained = currentMiningExperience - initial.getStartingMiningExperience();
-        final int essenceMined = miningExperienceGained / 5;
-        final int essenceMinedPerHour = calculateMetricPerHour(essenceMined, runtime);
-        final int miningExperiencePerHour = calculateMetricPerHour(miningExperienceGained, runtime);
-        final int miningLevelsGained = ctx.skills.level(org.powerbot.script.rt6.Constants.SKILLS_MINING) - initial.getStartingMiningLevel();
-        
-        final int hoursElapsed = (int) (runtime / 3600000);
-        int minutesElapsed = (int) (runtime / 60000 - hoursElapsed * 60);
-        int secondsElapsed = (int) (runtime / 1000 - hoursElapsed * 3600 - minutesElapsed * 60);
-        final String timeElapsed = String.format("%02d", hoursElapsed) + ":" + String.format("%02d", minutesElapsed) + ":" + String.format("%02d", secondsElapsed);
-        
-        return new Stats(
-        	initial.getStartingMiningExperience(),
-        	initial.getStartingMiningLevel(),
-        	currentMiningExperience,
-        	miningExperienceGained,
-        	miningExperiencePerHour,
-        	miningLevelsGained,
-        	essenceMined,
-        	essenceMinedPerHour,
-        	timeElapsed
-        );
+		final int currentMiningExperience = ctx.skills.experience(org.powerbot.script.rt6.Constants.SKILLS_MINING);
+		final int miningExperienceGained = currentMiningExperience - initial.getStartingMiningExperience();
+		final int essenceMined = miningExperienceGained / 5;
+		final int essenceMinedPerHour = calculateMetricPerHour(essenceMined, runtime);
+		final int miningExperiencePerHour = calculateMetricPerHour(miningExperienceGained, runtime);
+		final int miningLevelsGained = ctx.skills.level(org.powerbot.script.rt6.Constants.SKILLS_MINING) - initial.getStartingMiningLevel();
+		
+		final int hoursElapsed = (int) (runtime / 3600000);
+		int minutesElapsed = (int) (runtime / 60000 - hoursElapsed * 60);
+		int secondsElapsed = (int) (runtime / 1000 - hoursElapsed * 3600 - minutesElapsed * 60);
+		final String timeElapsed = String.format("%02d", hoursElapsed) + ":" + String.format("%02d", minutesElapsed) + ":" + String.format("%02d", secondsElapsed);
+		
+		return new Stats(
+			initial.getStartingMiningExperience(),
+			initial.getStartingMiningLevel(),
+			currentMiningExperience,
+			miningExperienceGained,
+			miningExperiencePerHour,
+			miningLevelsGained,
+			essenceMined,
+			essenceMinedPerHour,
+			timeElapsed
+		);
 	}
 	
 	private int calculateMetricPerHour(final int metric, final long runtime) {
