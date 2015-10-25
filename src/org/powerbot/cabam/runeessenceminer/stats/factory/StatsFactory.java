@@ -1,5 +1,6 @@
-package org.powerbot.cabam.runeessenceminer.stats;
+package org.powerbot.cabam.runeessenceminer.stats.factory;
 
+import org.powerbot.cabam.runeessenceminer.stats.Stats;
 import org.powerbot.script.rt6.ClientContext;
 
 public class StatsFactory {

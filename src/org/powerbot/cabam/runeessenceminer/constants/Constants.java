@@ -1,4 +1,4 @@
-package org.powerbot.cabam.runeessenceminer.util;
+package org.powerbot.cabam.runeessenceminer.constants;
 
 import org.powerbot.script.Tile;
 
