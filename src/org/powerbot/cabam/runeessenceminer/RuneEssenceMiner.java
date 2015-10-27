@@ -15,7 +15,7 @@ import org.powerbot.script.rt6.ClientContext;
 @Script.Manifest(
 	name = "cabAm's Rune Essene Miner",
 	description = "Mines Rune Essence in Varrock.",
-	properties = "client=6"
+	properties = "client=6; topic=1288454"
 )
 public class RuneEssenceMiner extends PollingScript<ClientContext> implements PaintListener {
 	
