@@ -27,6 +27,9 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 	public void start() {
 		taskController = new TaskController(ctx);
 		statsFactory = new StatsFactory(ctx);
+		
+		ctx.camera.angle(334);
+		ctx.camera.pitch(26);
 	}
 
 	@Override
