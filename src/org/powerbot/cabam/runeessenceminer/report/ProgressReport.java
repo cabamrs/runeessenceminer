@@ -15,21 +15,22 @@ public class ProgressReport {
 
 		g.setFont(Constants.FONT_TAHOMA);
 		g.setColor(Color.YELLOW);
-		g.fillRect(5, 5, 450, 20);
+		g.fillRect(5, 5, 490, 20);
 
 		g.setColor(Color.BLACK);
-		g.drawString(Constants.STAT_TIME + stats.getElapsedTime()
-				+ Constants.STAT_SEPARATOR + getFormattedLevel(stats.getStartingMiningLevel(), stats.getGainedMiningLevels())
-				+ Constants.STAT_SEPARATOR + getFormattedEssence(stats.getMinedEssence(), stats.getMinedEssencePerHour())
-				+ Constants.STAT_SEPARATOR + getFormattedExperience(stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour())
-				, 10, 20);
+		g.drawString(getFormattedStats(stats), 10, 20);
 	}
 
 	public static void log(Logger logger, final Stats stats) {
-		logger.info(Constants.STAT_TIME + stats.getElapsedTime());
-		logger.info(String.format(Constants.STAT_LEVEL, stats.getStartingMiningLevel(), stats.getGainedMiningLevels()));
-		logger.info(String.format(Constants.STAT_ESSENCE, stats.getMinedEssence(), stats.getMinedEssencePerHour()));
-		logger.info(String.format(Constants.STAT_EXPERIENCE, stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour()));
+		logger.info(getFormattedStats(stats));
+	}
+	
+	private static String getFormattedStats(Stats stats) {
+		return Constants.VERSION
+				+ Constants.STAT_SEPARATOR + Constants.STAT_TIME + stats.getElapsedTime()
+				+ Constants.STAT_SEPARATOR + getFormattedLevel(stats.getStartingMiningLevel(), stats.getGainedMiningLevels())
+				+ Constants.STAT_SEPARATOR + getFormattedEssence(stats.getMinedEssence(), stats.getMinedEssencePerHour())
+				+ Constants.STAT_SEPARATOR + getFormattedExperience(stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour());
 	}
 
 	private static String getFormattedLevel(int startingMiningLevel, int gainedMiningLevels) {
