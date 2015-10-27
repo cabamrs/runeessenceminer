@@ -17,8 +17,13 @@ public class OpenDoor extends Task<ClientContext> {
 	@Override
 	public void execute() {
 		logger.info("Executing task - OpenDoor");
-		final GameObject closedDoor = ctx.objects.select().id(Constants.OBJECT_CLOSED_DOOR).nearest().peek();
-		closedDoor.interact("Open");
+		
+		final GameObject closedDoor = ctx.objects.select().id(Constants.OBJECT_CLOSED_DOOR).at(Constants.TILE_CLOSED_DOOR).peek();
+		
+		if (!closedDoor.interact("Open")) {
+			ctx.camera.angle('n');
+			ctx.camera.pitch(30);
+		}
 	}
 
 }
