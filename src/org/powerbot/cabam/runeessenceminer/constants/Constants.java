@@ -1,5 +1,7 @@
 package org.powerbot.cabam.runeessenceminer.constants;
 
+import java.awt.Font;
+
 import org.powerbot.script.Tile;
 
 public class Constants {
@@ -18,5 +20,13 @@ public class Constants {
 	public static final int WIDGET_INVENTORY_FULL = 1186;
 	
 	public static final int COMPONENT_INVENTORY_FULL_CLOSE = 4;
+	
+	public static final Font FONT_TAHOMA = new Font("Tahoma", Font.PLAIN, 12);
+	
+	public static final String STAT_TIME = "TIME: ";
+	public static final String STAT_LEVEL = "LVL: %,d +%,d";
+	public static final String STAT_ESSENCE = "ESS: %,d (%,d/h)";
+	public static final String STAT_EXPERIENCE = "EXP: %,d (%,d/h)";
+	public static final String STAT_SEPARATOR = " | ";
 	
 }
