@@ -17,17 +17,18 @@ public class StatsFactory {
 		return new Stats(
 			ctx.skills.experience(org.powerbot.script.rt6.Constants.SKILLS_MINING),
 			ctx.skills.level(org.powerbot.script.rt6.Constants.SKILLS_MINING),
-			0, 0, 0, 0, 0, 0, "00:00:00"
+			0, 0, 0, 0, 0, 0, 0, "00:00:00"
 		);
 	}
 
 	public Stats getStats(final long runtime) {
+		final int currentMiningLevel = ctx.skills.level(org.powerbot.script.rt6.Constants.SKILLS_MINING);
+		final int miningLevelsGained = currentMiningLevel - initial.getStartingMiningLevel();
 		final int currentMiningExperience = ctx.skills.experience(org.powerbot.script.rt6.Constants.SKILLS_MINING);
 		final int miningExperienceGained = currentMiningExperience - initial.getStartingMiningExperience();
 		final int essenceMined = miningExperienceGained / 5;
 		final int essenceMinedPerHour = calculateMetricPerHour(essenceMined, runtime);
 		final int miningExperiencePerHour = calculateMetricPerHour(miningExperienceGained, runtime);
-		final int miningLevelsGained = ctx.skills.level(org.powerbot.script.rt6.Constants.SKILLS_MINING) - initial.getStartingMiningLevel();
 		
 		final int hoursElapsed = (int) (runtime / 3600000);
 		int minutesElapsed = (int) (runtime / 60000 - hoursElapsed * 60);
@@ -38,6 +39,7 @@ public class StatsFactory {
 			initial.getStartingMiningExperience(),
 			initial.getStartingMiningLevel(),
 			currentMiningExperience,
+			currentMiningLevel,
 			miningExperienceGained,
 			miningExperiencePerHour,
 			miningLevelsGained,

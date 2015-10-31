@@ -28,13 +28,13 @@ public class ProgressReport {
 	private static String getFormattedStats(Stats stats) {
 		return Constants.VERSION
 				+ Constants.STAT_SEPARATOR + Constants.STAT_TIME + stats.getElapsedTime()
-				+ Constants.STAT_SEPARATOR + getFormattedLevel(stats.getStartingMiningLevel(), stats.getGainedMiningLevels())
+				+ Constants.STAT_SEPARATOR + getFormattedLevel(stats.getCurrentMiningLevel(), stats.getGainedMiningLevels())
 				+ Constants.STAT_SEPARATOR + getFormattedEssence(stats.getMinedEssence(), stats.getMinedEssencePerHour())
 				+ Constants.STAT_SEPARATOR + getFormattedExperience(stats.getGainedMiningExperience(), stats.getGainedMiningExperiencePerHour());
 	}
 
-	private static String getFormattedLevel(int startingMiningLevel, int gainedMiningLevels) {
-		return String.format(Constants.STAT_LEVEL, startingMiningLevel, gainedMiningLevels);
+	private static String getFormattedLevel(int currentMiningLevel, int gainedMiningLevels) {
+		return String.format(Constants.STAT_LEVEL, currentMiningLevel, gainedMiningLevels);
 	}
 
 	private static String getFormattedEssence(int minedEssence, int minedEssencePerHour) {

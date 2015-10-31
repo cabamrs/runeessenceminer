@@ -6,6 +6,7 @@ public class Stats {
 	private final int startingMiningExperience;
 	private final int startingMiningLevel;
 	private final int currentMiningExperience;
+	private final int currentMiningLevel;
 	private final int gainedMiningExperience;
 	private final int gainedMiningExperiencePerHour;
 	private final int gainedMiningLevels;
@@ -17,6 +18,7 @@ public class Stats {
 			final int startingMiningExperience,
 			final int startingMiningLevel,
 			final int currentMiningExperience,
+			final int currentMiningLevel,
 			final int gainedMiningExperience,
 			final int gainedMiningExperiencePerHour,
 			final int gainedMiningLevels,
@@ -26,6 +28,7 @@ public class Stats {
 		this.startingMiningExperience = startingMiningExperience;
 		this.startingMiningLevel = startingMiningLevel;
 		this.currentMiningExperience = currentMiningExperience;
+		this.currentMiningLevel = currentMiningLevel;
 		this.gainedMiningExperience = gainedMiningExperience;
 		this.gainedMiningExperiencePerHour = gainedMiningExperiencePerHour;
 		this.gainedMiningLevels = gainedMiningLevels;
@@ -40,6 +43,10 @@ public class Stats {
 
 	public int getStartingMiningLevel() {
 		return startingMiningLevel;
+	}
+
+	public int getCurrentMiningLevel() {
+		return currentMiningLevel;
 	}
 
 	public int getCurrentMiningExperience() {
