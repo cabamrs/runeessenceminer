@@ -4,7 +4,6 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.powerbot.cabam.runeessenceminer.state.GameState;
-import org.powerbot.cabam.runeessenceminer.state.factory.GameStateFactory;
 import org.powerbot.cabam.runeessenceminer.tasks.ClimbDownStaircase;
 import org.powerbot.cabam.runeessenceminer.tasks.CloseBank;
 import org.powerbot.cabam.runeessenceminer.tasks.CloseInventoryFullMessage;
@@ -27,16 +26,14 @@ public class TaskFactory {
 	
 	private ClientContext ctx;
 	private final Map<GameState, Task> stateToTasksMap;
-	private GameStateFactory stateFactory;
 	
 	public TaskFactory(ClientContext ctx) {
 		this.ctx = ctx;
 		this.stateToTasksMap = getStateToTasksMap();
-		this.stateFactory = new GameStateFactory(ctx);
 	}
 	
-	public Task getTask() {
-		return stateToTasksMap.get(stateFactory.getState());
+	public Task getTask(final GameState state) {
+		return stateToTasksMap.get(state);
 	}
 	
 	private Map<GameState, Task> getStateToTasksMap() {
