@@ -6,7 +6,7 @@ import org.powerbot.script.Tile;
 
 public class Constants {
 	
-	public static final String VERSION ="v0.2.0";
+	public static final String VERSION ="v0.3.0";
 	
 	public static final int NPC_AUBURY = 5913;
 	

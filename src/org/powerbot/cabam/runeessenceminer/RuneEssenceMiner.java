@@ -34,7 +34,7 @@ public class RuneEssenceMiner extends PollingScript<ClientContext> implements Pa
 
 	@Override
 	public void poll() {
-		taskController.getTask().execute();
+		taskController.execute();
 	}
 
 	@Override
