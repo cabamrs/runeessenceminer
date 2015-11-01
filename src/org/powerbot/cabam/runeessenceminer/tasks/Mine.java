@@ -1,7 +1,6 @@
 package org.powerbot.cabam.runeessenceminer.tasks;
 
 import java.util.concurrent.Callable;
-import java.util.logging.Logger;
 
 import org.powerbot.cabam.runeessenceminer.constants.Constants;
 import org.powerbot.script.Condition;
@@ -10,15 +9,12 @@ import org.powerbot.script.rt6.GameObject;
 
 public class Mine extends Task<ClientContext> {
 	
-	private Logger logger = Logger.getGlobal();
-
 	public Mine(ClientContext ctx) {
 		super(ctx);
 	}
 
 	@Override
 	public void execute() {
-		logger.info("Executing task - Mine");
 		if (!ctx.backpack.isEmpty()) {
 			Condition.wait(new Callable<Boolean>() {
 				@Override
